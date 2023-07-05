@@ -1,6 +1,6 @@
 import { assertEquals } from "asserts";
 
-import { channel } from "./channel.ts";
+import { channel } from "../mod.ts";
 
 Deno.test("channel sends and receives values", async () => {
   const ch = channel<number>();

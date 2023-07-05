@@ -13,7 +13,7 @@ await build({
   package: {
     // package.json properties
     name: "dnt-template",
-    version: Deno.args[0],
+    version: Deno.args[0] || "0.0.0",
     description: "Your package.",
     license: "MIT",
     repository: {

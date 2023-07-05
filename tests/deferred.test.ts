@@ -1,6 +1,6 @@
 import { assertEquals } from "asserts";
 
-import { Deferred } from "./deferred.ts";
+import { Deferred } from "../mod.ts";
 
 Deno.test("deferred resolves promise", async () => {
   const deferred = new Deferred<number>();

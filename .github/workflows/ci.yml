@@ -20,13 +20,12 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: ~1.x
+      - name: Test Deno
+        run: deno test
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 16
-
-      - name: Test Deno
-        run: deno task test
       - name: Build and Test Node.js
         run: deno task build
 

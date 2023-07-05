@@ -1,10 +1,9 @@
 {
   "lock": false,
   "tasks": {
-    "build": "deno run -A scripts/build-npm.ts 0.0.0",
-    "format": "deno fmt mod.ts lib",
-    "lint": "deno fmt mod.ts lib --check && deno lint mod.ts lib/",
-    "test": "deno test lib/"
+    "build": "deno run -A scripts/build-npm.ts",
+    "format": "deno fmt",
+    "lint": "deno fmt --check && deno lint"
   },
   "exclude": ["npm/"],
   "imports": {
