@@ -3,9 +3,9 @@
   "tasks": {
     "build": "deno run -A scripts/build-npm.ts",
     "format": "deno fmt",
-    "lint": "deno fmt --check && deno lint"
+    "check": "deno fmt --check && deno lint"
   },
-  "exclude": ["npm/"],
+  "exclude": [".changeset/", "npm/"],
   "imports": {
     "asserts": "https://deno.land/std@0.193.0/testing/asserts.ts"
   }

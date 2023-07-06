@@ -1,0 +1,17 @@
+{
+  "name": "dnt-template",
+  "version": "0.0.0",
+  "description": "dnt-template",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-ebey/dnt-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jacob-ebey/dnt-template/issues"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.2"
+  }
+}
