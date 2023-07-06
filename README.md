@@ -2,7 +2,15 @@
 
 ## Setup
 
+Replace github username / project name throughout files:
+
+```sh
 deno run -A scripts/setup.ts
+```
+
+Add a GitHub Actions repository secret called `NPM_TOKEN` with publishing permissions.
+
+Go to your GitHub repository Settings > Actions > General and set `Workflow permissions` to `Read and write permissions`, as well as enabling `Allow GitHub Actions to create and approve pull requests`.
 
 ## Development
 
