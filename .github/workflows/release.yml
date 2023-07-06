@@ -23,18 +23,22 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-      - name: Build and Test Node.js
-        run: deno task build
       - name: Install Dependencies
         run: npm i
-      - name: Create Release Pull Request
-        id: changesets
-        uses: changesets/action@v1
+      - name: Version
+        run: npx changeset version
+      - name: Needs Publishing
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Release
-        if: steps.changesets.outputs.hasChangesets == 'false'
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        run: echo ::set-env name=CHANGES::$(git status -s | wc -l)
+        id: needs_publishing
+      - name: Remove Dependencies
+        run: rm -rf node_modules
+      - name: Build and Test Node.js
+        run: deno task build
+      - name: Publish
+        if: steps.needs_publishing.outputs.CHANGES != '0'
         uses: JS-DevTools/npm-publish@v2
         with:
-          token: ${{ secrets.NPM_TOKEN }}
           package: "npm"
+          token: ${{ secrets.NPM_TOKEN }}
