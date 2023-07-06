@@ -27,27 +27,26 @@ jobs:
         run: npm i
       - name: Version
         run: npx changeset version
+      - name: Read Version
+        id: version
+        run: echo ::set-output name=VERSION::$(cat package.json | jq '.version')
       - name: Needs Publishing
-        run: echo ::set-output name=CHANGES::$(git status -s | wc -l)
+        run: echo ::set-output name=CHANGES::$(git status -s .changeset CHANGELOG.md package.json | wc -l)
         id: needs_publishing
       - name: Remove Dependencies
         run: rm -rf node_modules
       - name: Build and Test Node.js
         run: deno task build
-      - name: Publish
+      - name: Publish ${{ steps.version.outputs.VERSION }}
         if: steps.needs_publishing.outputs.CHANGES != '0'
         uses: JS-DevTools/npm-publish@v2
         with:
           package: "npm"
           token: ${{ secrets.NPM_TOKEN }}
-      - name: Push Changes
+      - name: Push Changes ${{ steps.version.outputs.VERSION }}
         if: steps.needs_publishing.outputs.CHANGES != '0'
-        uses: github-actions-x/commit@v2.9
+        uses: EndBug/add-and-commit@v9
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-branch: "main"
-          commit-message: "bot: publish release"
-          force-add: "true"
-          files: package.json .changeset/
-          name: CI Bot
-          email: bot@github.com
+          add: '[".changeset", "CHANGELOG.md", "package.json"]'
+          push: true
+          tag: "${{ steps.version.outputs.VERSION }}"
