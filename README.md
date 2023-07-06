@@ -1,5 +1,9 @@
 # dnt-template
 
+## Setup
+
+deno run -A scripts/setup.ts
+
 ## Development
 
 Testing in Deno can be ran in a single pass with:
