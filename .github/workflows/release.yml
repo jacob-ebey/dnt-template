@@ -35,18 +35,32 @@ jobs:
         id: needs_publishing
       - name: Remove Dependencies
         run: rm -rf node_modules
+      - name: Create Release PR
+        if: steps.needs_publishing.outputs.CHANGES != '0'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "Release ${{ steps.version.outputs.VERSION }}"
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          branch: release-next
+          title: "Release ${{ steps.version.outputs.VERSION }}"
+          body: |
+            Release ${{ steps.version.outputs.VERSION }}
+          labels: |
+            release
+          assignees: jacob-ebey
+          reviewers: jacob-ebey
       - name: Build and Test Node.js
         run: deno task build
       - name: Publish ${{ steps.version.outputs.VERSION }}
-        if: steps.needs_publishing.outputs.CHANGES != '0'
+        if: steps.needs_publishing.outputs.CHANGES == '0'
         uses: JS-DevTools/npm-publish@v2
+        id: publish
         with:
           package: "npm"
           token: ${{ secrets.NPM_TOKEN }}
-      - name: Push Changes ${{ steps.version.outputs.VERSION }}
-        if: steps.needs_publishing.outputs.CHANGES != '0'
-        uses: EndBug/add-and-commit@v9
+      - name: Create Release ${{ steps.version.outputs.VERSION }}
+        if: steps.needs_publishing.outputs.CHANGES == '0' && ${{ steps.publish.outputs.type }}
+        uses: softprops/action-gh-release@v1
         with:
-          add: '[".changeset", "CHANGELOG.md", "package.json"]'
-          push: true
-          tag: ${{ steps.version.outputs.VERSION }}
+          tag_name: ${{ steps.version.outputs.VERSION }}
