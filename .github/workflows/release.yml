@@ -30,8 +30,6 @@ jobs:
       - name: Needs Publishing
         run: echo ::set-output name=CHANGES::$(git status -s | wc -l)
         id: needs_publishing
-      - name: test log
-        run: echo ${{ steps.needs_publishing.outputs.CHANGES }}
       - name: Remove Dependencies
         run: rm -rf node_modules
       - name: Build and Test Node.js
