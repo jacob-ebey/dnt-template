@@ -30,7 +30,7 @@ jobs:
       - name: Needs Publishing
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        run: echo ::set-env name=CHANGES::$(git status -s | wc -l)
+        run: echo ::set-output name=CHANGES::$(git status -s | wc -l)
         id: needs_publishing
       - name: test log
         run: echo ${{ steps.needs_publishing.outputs.CHANGES }}
