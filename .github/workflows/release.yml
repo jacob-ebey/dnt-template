@@ -45,12 +45,13 @@ jobs:
           package: "npm"
           token: ${{ secrets.NPM_TOKEN }}
       - name: Push Changes
+        if: steps.needs_publishing.outputs.CHANGES != '0'
         uses: github-actions-x/commit@v2.9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-branch: 'main'
-          commit-message: 'bot: publish release'
-          force-add: 'true'
+          push-branch: "main"
+          commit-message: "bot: publish release"
+          force-add: "true"
           files: package.json .changeset/
           name: CI Bot
           email: bot@github.com
