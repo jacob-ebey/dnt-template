@@ -49,4 +49,4 @@ jobs:
         with:
           add: '[".changeset", "CHANGELOG.md", "package.json"]'
           push: true
-          tag: "${{ steps.version.outputs.VERSION }}"
+          tag: ${{ steps.version.outputs.VERSION }}
