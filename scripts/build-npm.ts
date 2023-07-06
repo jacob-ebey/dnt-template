@@ -2,6 +2,12 @@ import { build, emptyDir } from "https://deno.land/x/dnt@0.37.0/mod.ts";
 
 await emptyDir("./npm");
 
+const {
+  dependencies: _,
+  devDependencies: __,
+  ...pkg
+} = JSON.parse(Deno.readTextFileSync("package.json").trim());
+
 await build({
   entryPoints: ["./mod.ts"],
   outDir: "./npm",
@@ -10,20 +16,8 @@ await build({
     // see JS docs for overview and more options
     deno: true,
   },
-  package: {
-    // package.json properties
-    name: "dnt-template",
-    version: Deno.args[0] || "0.0.0",
-    description: "Your package.",
-    license: "MIT",
-    repository: {
-      type: "git",
-      url: "git+https://github.com/jacob-ebey/dnt-template.git",
-    },
-    bugs: {
-      url: "https://github.com/jacob-ebey/dnt-template/issues",
-    },
-  },
+  // package.json properties
+  package: pkg,
   postBuild() {
     // steps to run after building and before running the tests
     Deno.copyFileSync("LICENSE", "npm/LICENSE");
