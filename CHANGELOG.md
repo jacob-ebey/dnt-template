@@ -1,5 +1,11 @@
 # dnt-template
 
+## 0.0.2
+
+### Patch Changes
+
+- b9b792e: second release
+
 ## 0.0.1
 
 ### Patch Changes
