@@ -29,7 +29,9 @@ jobs:
         run: npx changeset version
       - name: Read Version
         id: version
-        run: echo ::set-output name=VERSION::$(cat package.json | jq '.version')
+        run: |
+          echo Version $(cat package.json | jq '.version')
+          echo ::set-output name=VERSION::$(cat package.json | jq '.version')
       - name: Needs Publishing
         run: echo ::set-output name=CHANGES::$(git status -s .changeset CHANGELOG.md package.json | wc -l)
         id: needs_publishing
@@ -60,7 +62,7 @@ jobs:
           package: "npm"
           token: ${{ secrets.NPM_TOKEN }}
       - name: Create Release ${{ steps.version.outputs.VERSION }}
-        if: steps.needs_publishing.outputs.CHANGES == '0' && ${{ steps.publish.outputs.type }}
+        if: ${{ steps.publish.outputs.type }}
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.version.outputs.VERSION }}
