@@ -27,6 +27,8 @@ jobs:
         run: npm i
       - name: Version
         run: npx changeset version
+      - name: test log
+        run: git status -s | wc -l
       - name: Needs Publishing
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
