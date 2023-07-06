@@ -25,6 +25,7 @@ jobs:
           node-version: 16
       - name: Install Dependencies
         run: npm i
+
       - name: Version
         run: npx changeset version
       - name: Read Version
@@ -37,6 +38,10 @@ jobs:
         id: needs_publishing
       - name: Remove Dependencies
         run: rm -rf node_modules
+
+      - name: Build and Test Node.js
+        run: deno task build
+
       - name: Create Release PR ${{ steps.version.outputs.VERSION }}
         if: steps.needs_publishing.outputs.CHANGES != '0'
         uses: peter-evans/create-pull-request@v5
@@ -50,8 +55,6 @@ jobs:
             release
           assignees: jacob-ebey
           reviewers: jacob-ebey
-      - name: Build and Test Node.js
-        run: deno task build
       - name: Publish ${{ steps.version.outputs.VERSION }}
         if: steps.needs_publishing.outputs.CHANGES == '0'
         uses: JS-DevTools/npm-publish@v2
