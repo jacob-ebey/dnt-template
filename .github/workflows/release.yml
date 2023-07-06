@@ -28,8 +28,6 @@ jobs:
       - name: Version
         run: npx changeset version
       - name: Needs Publishing
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: echo ::set-output name=CHANGES::$(git status -s | wc -l)
         id: needs_publishing
       - name: test log
