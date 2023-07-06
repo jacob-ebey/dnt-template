@@ -30,8 +30,8 @@ jobs:
       - name: Read Version
         id: version
         run: |
-          echo Version $(cat package.json | jq '.version')
-          echo ::set-output name=VERSION::$(cat package.json | jq '.version')
+          echo Version $(cat package.json | jq -r '.version')
+          echo ::set-output name=VERSION::$(cat package.json | jq -r '.version')
       - name: Needs Publishing
         run: echo ::set-output name=CHANGES::$(git status -s .changeset CHANGELOG.md package.json | wc -l)
         id: needs_publishing
