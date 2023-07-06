@@ -18,6 +18,13 @@ const { name, username } = (await ask.prompt([
 Deno.removeSync("CHANGELOG.md");
 
 Deno.writeTextFileSync(
+  ".github/workflows/release.yml",
+  Deno.readTextFileSync(".github/workflows/release.yml")
+    .replace(/jacob\-ebey/g, username)
+    .replace(/dnt\-template/g, name)
+);
+
+Deno.writeTextFileSync(
   "README.md",
   Deno.readTextFileSync("README.md").replace(/dnt\-template/g, name)
 );
