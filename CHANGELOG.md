@@ -1,5 +1,11 @@
 # dnt-template
 
+## 0.0.4
+
+### Patch Changes
+
+- 8f7bc6f: forth release
+
 ## 0.0.3
 
 ### Patch Changes
