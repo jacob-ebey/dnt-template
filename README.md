@@ -1,6 +1,14 @@
 # dnt-template
 
-## Setup
+## Initial Setup
+
+Clone repo:
+
+```sh
+git clone https://github.com/jacob-ebey/dnt-template.git
+rm -rf ./.git
+git init
+```
 
 Replace github username / project name throughout files:
 
