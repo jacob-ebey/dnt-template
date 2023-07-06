@@ -20,6 +20,8 @@ Add a GitHub Actions repository secret called `NPM_TOKEN` with publishing permis
 
 Go to your GitHub repository Settings > Actions > General and set `Workflow permissions` to `Read and write permissions`, as well as enabling `Allow GitHub Actions to create and approve pull requests`.
 
+Add a WebHook to publish your deno module: https://deno.com/add_module
+
 ## Development
 
 Testing in Deno can be ran in a single pass with:
